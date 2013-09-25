@@ -69,7 +69,26 @@ $(document).ready(function() {
 		
 	});
 	
-	$(".lnkXoaDanhMuc").click(function() {
+	$(".lnkSua").click(function() {
+		var itemID = parseInt($(this).attr("data-id"));
+		var trangthaiID = parseInt($(this).attr("data-trangthai"));
+		var txt = document.getElementById("txtTenDanhMuc" + itemID);
+		
+		if(trangthaiID == 0)//Readonly, click to edit
+		{
+			editableField(txt);
+			$(this).text("Xong");
+			$(this).attr("data-trangthai", 1);
+		}
+		else if(trangthaiID == 1)//Editable, click to close (read only)
+		{
+			readOnlyField(txt);
+			$(this).text("Sửa");
+			$(this).attr("data-trangthai", 0);
+		}
+    });
+	
+	$(".lnkXoa").click(function() {
         deleteItem(this);
     });
 	

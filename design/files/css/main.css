@@ -56,9 +56,12 @@ a:hover, a:focus
 }
 .txt
 {
-	border:none;
+	border:1px solid rgb(108, 134, 114);
 	padding:3px 10px;
 	margin:0;
+	
+	font-family:"segoe ui semilight", "segoe ui", tahoma, arial;
+	font-size:14px;
 }
 .dangnhap .txt
 {
@@ -151,6 +154,13 @@ a:hover, a:focus
 	overflow:hidden;
 	margin:20px;
 	padding:5px;
+	
+	min-height:350px;
+}
+.content-title
+{
+	font-size:18px;
+	font-weight:bold;
 }
 .timkiem
 {
@@ -159,12 +169,17 @@ a:hover, a:focus
 	background-color:rgb(108, 134, 114);
 	padding:2px;
 }
+.ketquatimkiem
+{
+	padding:5px 0 5px 0;
+	font-weight:bold;
+	display:inline-block;
+}
 .danhsach
 {
 	overflow:hidden;
 	clear:both;
 	margin-top:40px;
-	min-height:275px;
 	
 	outline:1px solid rgb(108, 134, 114);
 }
@@ -182,7 +197,6 @@ a:hover, a:focus
 .danhsach-header li, .danhsach-item li
 {
 	float:left;
-	min-width:100px;
 }
 .danhsach-item li img:hover
 {
@@ -210,6 +224,7 @@ a:hover, a:focus
 .editField
 {
 	margin:0;
+	width:200px;
 	border:none;
 	background-color:transparent;
 	font-family:"segoe ui semilight", "segoe ui", tahoma, arial;
@@ -224,6 +239,19 @@ a:hover, a:focus
 	border:1px solid rgb(196, 212, 175);
 	background-color:#FFF;
 	padding:0 4px;
+}
+.lnkSua
+{
+	font-weight:bold;
+}
+.lnkXoa
+{
+	color:rgb(217, 23, 29);
+	font-weight:bold;
+}
+.lnkXoa:hover, .lnkXoa:focus
+{
+	outline:1px dotted rgb(217, 23, 29);
 }
 .danhsach-navigation
 {
@@ -243,6 +271,7 @@ a:hover, a:focus
 .footer
 {
 	overflow:hidden;
+	widows:100%;
 	font-size:12px;
 	color:#000;
 	
