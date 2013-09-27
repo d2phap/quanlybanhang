@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 24, 2013 9:20:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="POJOs.Sanpham" table="sanpham" schema="dbo" catalog="dbQLBH">
+        <id name="masanpham" type="int">
+            <column name="masanpham" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="danhmucsanpham" class="POJOs.Danhmucsanpham" fetch="select">
+            <column name="madanhmucsanpham" />
+        </many-to-one>
+        <property name="tensanpham" type="serializable">
+            <column name="tensanpham" />
+        </property>
+        <property name="hinhanh" type="serializable">
+            <column name="hinhanh" />
+        </property>
+        <property name="soluong" type="java.lang.Integer">
+            <column name="soluong" />
+        </property>
+        <property name="dongia" type="java.lang.Double">
+            <column name="dongia" precision="53" scale="0" />
+        </property>
+        <property name="trangthai" type="java.lang.Integer">
+            <column name="trangthai" />
+        </property>
+        <set name="chitietdonhangs" inverse="true">
+            <key>
+                <column name="masanpham" />
+            </key>
+            <one-to-many class="POJOs.Chitietdonhang" />
+        </set>
+    </class>
+</hibernate-mapping>
