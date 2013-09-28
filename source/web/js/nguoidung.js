@@ -47,5 +47,17 @@ $(document).ready(function() {
         deleteItem(this);
     });
 	
+	//Kiem tra du lieu form
+	$("#frmThemNguoiDungMoi").submit(function(e) {
+        var pass = $.trim($("#txtMatKhau").val());
+		var confirmpass = $.trim($("#txtXacNhanMatKhau").val());
+		
+		if(pass != confirmpass)
+		{
+			alert("Mật khẩu xác nhận không đúng!");
+			return false;
+		}
+    });
+	
 });
 

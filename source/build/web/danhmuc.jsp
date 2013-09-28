@@ -3,33 +3,8 @@
     Created on : Sep 26, 2013, 9:06:06 AM
     Author     : LEEYOOL
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Quản lý bán hàng</title>
-    
-    <link type="text/css" href="css/main.css" rel="stylesheet" />
-	<script type="text/javascript" src="js/jquery_min.js"></script>
-    <script type="text/javascript" src="js/danhmuc.js"></script>
-</head>
-
-<body>
-	<!--HEADER-->
-    <div class="header">
-    	<a href="danhmuc.html" title="Quản lý bán hàng" style="outline:none;"><h1>QUẢN LÝ BÁN HÀNG</h1></a>
-        
-        <!--NAVIGATION BAR-->
-        <ul class="navigation">
-        	<a href="danhmuc.html" title="Danh mục sản phẩm" class="navigation-item-selected"><li>Danh mục sản phẩm</li></a>
-            <a href="sanpham.html" title="Quản lý sản phẩm"><li>Quản lý sản phẩm</li></a>
-            <a href="donhang.html" title="Quản lý đơn hàng"><li>Quản lý đơn hàng</li></a>
-            <a href="khachhang.html" title="Quản lý khách hàng"><li>Quản lý khách hàng</li></a>
-            <a href="nguoidung.html" title="Quản lý người dùng"><li>Quản lý người dùng</li></a>
-        </ul><!--NAVIGATION BAR-->
-    </div><!--END HEADER-->
+<jsp:include page="header.jsp" ></jsp:include>
     
     <!--CONTENT-->
     <div class="content">
@@ -102,18 +77,6 @@
             <a name="btnThemDanhMuc" id="btnThemDanhMuc">Trang kế ></a>
         </div>
     </div><!--END CONTENT-->
+   
     
-    <!--FOOTER-->
-    <div class="footer">
-    	<p><b>Đồ án Lập trình ứng dụng JAVA - 12HCA2</b></p>
-        <span style="line-height:18px;">
-            <b>Nhóm thực hiện:</b><br/>
-            Nguyễn Ngọc Khánh (1241350)<br/>
-            Bùi Bá Lộc (1241363)<br/>
-            Dương Diệu Pháp (1241378)<br/>
-            Nguyễn Quốc Tuấn (1241341)
-        </span>
-    </div><!--END FOOTER-->
-    
-</body>
-</html>
+<jsp:include page="footer.jsp" ></jsp:include>

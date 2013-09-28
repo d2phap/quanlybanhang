@@ -33,9 +33,9 @@ public class IndexController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //PrintWriter out = response.getWriter();
+        PrintWriter out = response.getWriter();
         try {
-            
+            request.setAttribute("ServeletName", "index");
             
             RequestDispatcher view = request.getRequestDispatcher("index.jsp");
             view.forward(request, response);

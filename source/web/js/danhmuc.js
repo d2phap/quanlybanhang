@@ -17,12 +17,12 @@ function changeStatus(id, statusCode)
 {
 	if(statusCode == 1) //Kich hoat
 	{
-		$(id).prop("src", "images/check.png");
+		$(id).prop("src", "files/images/check.png");
 		$(id).prop("title", "Kích hoạt");
 	}
 	else //An
 	{
-		$(id).prop("src", "images/delete.png");
+		$(id).prop("src", "files/images/delete.png");
 		$(id).prop("title", "Ẩn");
 	}
 }

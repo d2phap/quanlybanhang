@@ -6,7 +6,6 @@ package Controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +16,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author LEEYOOL
  */
-@WebServlet(name = "DanhMucController", urlPatterns = {"/danhmuc"})
-public class DanhMucController extends HttpServlet {
+@WebServlet(name = "KhachHangController", urlPatterns = {"/khachhang"})
+public class KhachHangController extends HttpServlet {
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -34,12 +34,16 @@ public class DanhMucController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            
-            request.setAttribute("ServeletName", "danhmuc");
-            
-            RequestDispatcher view = request.getRequestDispatcher("danhmuc.jsp");
-            view.forward(request, response);
-            
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet KhachHangController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet KhachHangController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         } finally {            
             out.close();
         }
@@ -59,8 +63,6 @@ public class DanhMucController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        
     }
 
     /**

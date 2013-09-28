@@ -17,8 +17,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author LEEYOOL
  */
-@WebServlet(name = "DanhMucController", urlPatterns = {"/danhmuc"})
-public class DanhMucController extends HttpServlet {
+@WebServlet(name = "DonHangController", urlPatterns = {"/donhang"})
+public class DonHangController extends HttpServlet {
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -34,11 +35,11 @@ public class DanhMucController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            request.setAttribute("ServeletName", "donhang");
             
-            request.setAttribute("ServeletName", "danhmuc");
-            
-            RequestDispatcher view = request.getRequestDispatcher("danhmuc.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("donhang.jsp");
             view.forward(request, response);
+            
             
         } finally {            
             out.close();
@@ -59,8 +60,6 @@ public class DanhMucController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        
     }
 
     /**
