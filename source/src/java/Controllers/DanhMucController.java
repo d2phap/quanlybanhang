@@ -34,11 +34,24 @@ public class DanhMucController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            
+            //Tham so
             request.setAttribute("ServeletName", "danhmuc");
             
-            RequestDispatcher view = request.getRequestDispatcher("danhmuc.jsp");
-            view.forward(request, response);
+            //Kiem tra dang nhap
+            if(DAO.TaiKhoanDAO.KiemTraDangNhap(request, response))
+            {
+                //Dang nhap thanh cong
+                RequestDispatcher view = request.getRequestDispatcher("danhmuc.jsp");
+                view.forward(request, response);
+            }
+            else
+            {
+                //Dang nhap that bai
+                //Bat dang nhap lai
+                String redirectURL = request.getContextPath();
+                response.sendRedirect(redirectURL);
+            }
+            
             
         } finally {            
             out.close();

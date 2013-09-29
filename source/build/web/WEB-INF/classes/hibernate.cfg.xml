@@ -6,9 +6,9 @@
     <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=dbQLBH</property>
     <property name="hibernate.connection.username">dbqlbh</property>
     <property name="hibernate.connection.password">12345</property>
-    <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
     <mapping resource="POJOs/Khachhang.hbm.xml"/>
     <mapping resource="POJOs/Chitietdonhang.hbm.xml"/>
     <mapping resource="POJOs/Taikhoan.hbm.xml"/>

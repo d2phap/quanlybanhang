@@ -5,7 +5,6 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp" ></jsp:include>
-    
     <!--CONTENT-->
     <div class="content">
     	<span class="ketquatimkiem">Tìm thấy 200 kết quả.</span>
@@ -31,7 +30,7 @@
                         <input type="text" class="editField" name="txtTenDanhMuc1" id="txtTenDanhMuc1" readonly value="Quần áo trẻ em" title="Quần áo trẻ em" />
                     </li>
                     <li style="width:80px; text-align:center;">
-                        <img class="imgTrangThai" name="imgTrangThai1" id="imgTrangThai1" src="images/check.png" alt="" width="16" height="16" data-code="1" title="Kích hoạt" />
+                        <img class="imgTrangThai" name="imgTrangThai1" id="imgTrangThai1" src="<%  %>images/check.png" alt="" width="16" height="16" data-code="1" title="Kích hoạt" />
                     </li>
                     <li style="width:100px; float:right; text-align:right;">
                         <a class="lnkSua" name="btnSua1" id="btnSua1" data-id="1" data-trangthai="0" title="Sửa danh mục">Sửa</a>

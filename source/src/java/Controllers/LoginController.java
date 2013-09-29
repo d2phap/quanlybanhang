@@ -18,10 +18,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Duong Dieu Phap
+ * @author LEEYOOL
  */
-@WebServlet(name = "HomeController", urlPatterns = {""})
-public class IndexController extends HttpServlet {
+@WebServlet(name = "LoginController", urlPatterns = {"/login"})
+public class LoginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -35,6 +35,7 @@ public class IndexController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NoSuchAlgorithmException {
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
@@ -62,8 +63,8 @@ public class IndexController extends HttpServlet {
                     }
                     else if(session.getAttribute("maloaitaikhoan").equals(2))//customer service
                     {
-                        //String redirectURL = request.getContextPath() + "/khachhang";
-                        //response.sendRedirect(redirectURL);
+                        String redirectURL = request.getContextPath() + "/khachhang";
+                        response.sendRedirect(redirectURL);
                     }
                     else if(session.getAttribute("maloaitaikhoan").equals(3))//merchandise
                     {
@@ -72,8 +73,8 @@ public class IndexController extends HttpServlet {
                     }
                     else if(session.getAttribute("maloaitaikhoan").equals(4))//accountant
                     {
-                        //String redirectURL = request.getContextPath() + "/donhang";
-                        //response.sendRedirect(redirectURL);
+                        String redirectURL = request.getContextPath() + "/donhang";
+                        response.sendRedirect(redirectURL);
                     }
                     
                 } else //Khong thanh cong
@@ -81,10 +82,16 @@ public class IndexController extends HttpServlet {
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
             }
-        } finally {            
+
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+
+        } finally {
             out.close();
         }
+       
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -102,8 +109,9 @@ public class IndexController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(IndexController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     /**
@@ -121,7 +129,7 @@ public class IndexController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(IndexController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -134,4 +142,7 @@ public class IndexController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    
+
 }

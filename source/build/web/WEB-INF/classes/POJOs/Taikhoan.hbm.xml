@@ -11,13 +11,13 @@
         <many-to-one name="loaitaikhoan" class="POJOs.Loaitaikhoan" fetch="select">
             <column name="maloaitaikhoan" />
         </many-to-one>
-        <property name="tentruycap" type="serializable">
+        <property name="tentruycap" type="string">
             <column name="tentruycap" />
         </property>
-        <property name="matkhau" type="serializable">
+        <property name="matkhau" type="string">
             <column name="matkhau" />
         </property>
-        <property name="hoten" type="serializable">
+        <property name="hoten" type="string">
             <column name="hoten" />
         </property>
         <property name="trangthai" type="java.lang.Integer">
