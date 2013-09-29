@@ -8,7 +8,7 @@
             <column name="maloaitaikhoan" />
             <generator class="assigned" />
         </id>
-        <property name="tenloaitaikhoan" type="serializable">
+        <property name="tenloaitaikhoan" type="string">
             <column name="tenloaitaikhoan" />
         </property>
         <set name="taikhoans" inverse="true">

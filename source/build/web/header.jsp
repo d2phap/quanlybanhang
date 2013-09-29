@@ -44,7 +44,7 @@
 <body>
     <!--HEADER-->
     <div class="header">
-    	<a href="<%= request.getContextPath() + "/" + serveletName %>" title="Quản lý bán hàng" style="outline:none;"><h1>QUẢN LÝ BÁN HÀNG</h1></a>
+    	<h1>QUẢN LÝ BÁN HÀNG</h1>
         <div class="logout">
             Xin chào <b><%= session.getAttribute("hoten") %></b> | <a href="<%= request.getContextPath() %>/login" title="Log out">Đăng xuất</a>
         </div>

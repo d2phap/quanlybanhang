@@ -2,7 +2,6 @@ package POJOs;
 // Generated Sep 24, 2013 9:20:03 AM by Hibernate Tools 3.2.1.GA
 
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +12,7 @@ public class Danhmucsanpham  implements java.io.Serializable {
 
 
      private int madanhmuc;
-     private Serializable tendanhmuc;
+     private String tendanhmuc;
      private Integer trangthai;
      private Set<Sanpham> sanphams = new HashSet<Sanpham>(0);
 
@@ -24,7 +23,7 @@ public class Danhmucsanpham  implements java.io.Serializable {
     public Danhmucsanpham(int madanhmuc) {
         this.madanhmuc = madanhmuc;
     }
-    public Danhmucsanpham(int madanhmuc, Serializable tendanhmuc, Integer trangthai, Set<Sanpham> sanphams) {
+    public Danhmucsanpham(int madanhmuc, String tendanhmuc, Integer trangthai, Set<Sanpham> sanphams) {
        this.madanhmuc = madanhmuc;
        this.tendanhmuc = tendanhmuc;
        this.trangthai = trangthai;
@@ -38,11 +37,11 @@ public class Danhmucsanpham  implements java.io.Serializable {
     public void setMadanhmuc(int madanhmuc) {
         this.madanhmuc = madanhmuc;
     }
-    public Serializable getTendanhmuc() {
+    public String getTendanhmuc() {
         return this.tendanhmuc;
     }
     
-    public void setTendanhmuc(Serializable tendanhmuc) {
+    public void setTendanhmuc(String tendanhmuc) {
         this.tendanhmuc = tendanhmuc;
     }
     public Integer getTrangthai() {

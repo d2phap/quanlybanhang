@@ -6,20 +6,19 @@ package Controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author LEEYOOL
+ * @author Duong Dieu Phap
  */
-@WebServlet(name = "DanhMucController", urlPatterns = {"/danhmuc"})
-public class DanhMucController extends HttpServlet {
+@WebServlet(name = "ThemDanhMucController", urlPatterns = {"/danhmuc/themmoi"})
+public class ThemDanhMucController extends HttpServlet {
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -35,57 +34,16 @@ public class DanhMucController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            //Tham so
-            HttpSession session = request.getSession();
-            request.setAttribute("ServeletName", "danhmuc");
-            
-            //Kiem tra dang nhap & quyen truy cap
-            if(DAO.TaiKhoanDAO.KiemTraDangNhap(request, response) &&
-               (session.getAttribute("maloaitaikhoan").equals(1) || //admin
-               session.getAttribute("maloaitaikhoan").equals(3))) //merchandise
-            {
-                
-                //Dang nhap thanh cong
-                //Lay action
-                String action = request.getParameter("action");
-                String txtSearch = "";
-                
-                if(action == null)
-                { }
-                else if(action.equals("timkiem"))
-                {
-                    if(request.getParameter("txtSearch") != null)
-                    {
-                        txtSearch = request.getParameter("txtSearch");
-                    }
-                }
-                else if(action.equals("xoa"))
-                {
-                    if(request.getParameter("id") != null)
-                    {
-                        //Lay ID
-                        int madanhmuc = Integer.parseInt(request.getParameter("id"));
-                        
-                    }
-                }
-                
-                //Tim kiem danh sach
-                request.setAttribute("danhmuc_timkiem", DAO.DanhMucDAO.TimDanhMuc(txtSearch));
-                request.setAttribute("danhmuc_txtSearch", txtSearch);
-                
-                //Hien thi trang danh muc
-                RequestDispatcher view = request.getRequestDispatcher("danhmuc.jsp");
-                view.forward(request, response);
-            }
-            else
-            {
-                //Dang nhap that bai
-                //Bat dang nhap lai
-                String redirectURL = request.getContextPath() + "/login";
-                response.sendRedirect(redirectURL);
-            }
-            
-            
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet XoaDanhMucController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet XoaDanhMucController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         } finally {            
             out.close();
         }
@@ -105,8 +63,6 @@ public class DanhMucController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        
     }
 
     /**

@@ -16,10 +16,11 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author LEEYOOL
+ * @author Duong Dieu Phap
  */
-@WebServlet(name = "DanhMucController", urlPatterns = {"/danhmuc"})
-public class DanhMucController extends HttpServlet {
+@WebServlet(name = "SanPhamController", urlPatterns = {"/sanpham"})
+public class SanPhamController extends HttpServlet {
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -37,44 +38,15 @@ public class DanhMucController extends HttpServlet {
         try {
             //Tham so
             HttpSession session = request.getSession();
-            request.setAttribute("ServeletName", "danhmuc");
+            request.setAttribute("ServeletName", "sanpham");
             
             //Kiem tra dang nhap & quyen truy cap
             if(DAO.TaiKhoanDAO.KiemTraDangNhap(request, response) &&
                (session.getAttribute("maloaitaikhoan").equals(1) || //admin
                session.getAttribute("maloaitaikhoan").equals(3))) //merchandise
             {
-                
                 //Dang nhap thanh cong
-                //Lay action
-                String action = request.getParameter("action");
-                String txtSearch = "";
-                
-                if(action == null)
-                { }
-                else if(action.equals("timkiem"))
-                {
-                    if(request.getParameter("txtSearch") != null)
-                    {
-                        txtSearch = request.getParameter("txtSearch");
-                    }
-                }
-                else if(action.equals("xoa"))
-                {
-                    if(request.getParameter("id") != null)
-                    {
-                        //Lay ID
-                        int madanhmuc = Integer.parseInt(request.getParameter("id"));
-                        
-                    }
-                }
-                
-                //Tim kiem danh sach
-                request.setAttribute("danhmuc_timkiem", DAO.DanhMucDAO.TimDanhMuc(txtSearch));
-                request.setAttribute("danhmuc_txtSearch", txtSearch);
-                
-                //Hien thi trang danh muc
-                RequestDispatcher view = request.getRequestDispatcher("danhmuc.jsp");
+                RequestDispatcher view = request.getRequestDispatcher("sanpham.jsp");
                 view.forward(request, response);
             }
             else
@@ -105,8 +77,6 @@ public class DanhMucController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        
     }
 
     /**

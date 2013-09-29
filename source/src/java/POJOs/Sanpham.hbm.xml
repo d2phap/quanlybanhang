@@ -8,7 +8,7 @@
             <column name="masanpham" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="danhmucsanpham" class="POJOs.Danhmucsanpham" fetch="join" lazy="false">
+        <many-to-one name="danhmucsanpham" class="POJOs.Danhmucsanpham" fetch="select">
             <column name="madanhmucsanpham" />
         </many-to-one>
         <property name="tensanpham" type="string">

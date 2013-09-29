@@ -13,7 +13,7 @@ public class Loaitaikhoan  implements java.io.Serializable {
 
 
      private int maloaitaikhoan;
-     private Serializable tenloaitaikhoan;
+     private String tenloaitaikhoan;
      private Set<Taikhoan> taikhoans = new HashSet<Taikhoan>(0);
 
     public Loaitaikhoan() {
@@ -23,7 +23,7 @@ public class Loaitaikhoan  implements java.io.Serializable {
     public Loaitaikhoan(int maloaitaikhoan) {
         this.maloaitaikhoan = maloaitaikhoan;
     }
-    public Loaitaikhoan(int maloaitaikhoan, Serializable tenloaitaikhoan, Set<Taikhoan> taikhoans) {
+    public Loaitaikhoan(int maloaitaikhoan, String tenloaitaikhoan, Set<Taikhoan> taikhoans) {
        this.maloaitaikhoan = maloaitaikhoan;
        this.tenloaitaikhoan = tenloaitaikhoan;
        this.taikhoans = taikhoans;
@@ -36,11 +36,11 @@ public class Loaitaikhoan  implements java.io.Serializable {
     public void setMaloaitaikhoan(int maloaitaikhoan) {
         this.maloaitaikhoan = maloaitaikhoan;
     }
-    public Serializable getTenloaitaikhoan() {
+    public String getTenloaitaikhoan() {
         return this.tenloaitaikhoan;
     }
     
-    public void setTenloaitaikhoan(Serializable tenloaitaikhoan) {
+    public void setTenloaitaikhoan(String tenloaitaikhoan) {
         this.tenloaitaikhoan = tenloaitaikhoan;
     }
     public Set<Taikhoan> getTaikhoans() {

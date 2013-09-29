@@ -8,13 +8,13 @@
             <column name="makhachhang" />
             <generator class="assigned" />
         </id>
-        <property name="hoten" type="serializable">
+        <property name="hoten" type="string">
             <column name="hoten" />
         </property>
         <property name="gioitinh" type="java.lang.Integer">
             <column name="gioitinh" />
         </property>
-        <property name="email" type="serializable">
+        <property name="email" type="string">
             <column name="email" />
         </property>
         <property name="ngaysinh" type="timestamp">

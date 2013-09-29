@@ -8,7 +8,7 @@
             <column name="madanhmuc" />
             <generator class="assigned" />
         </id>
-        <property name="tendanhmuc" type="serializable">
+        <property name="tendanhmuc" type="string">
             <column name="tendanhmuc" />
         </property>
         <property name="trangthai" type="java.lang.Integer">

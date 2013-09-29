@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp" ></jsp:include>
 
-<!--CONTENT-->
+    <!--CONTENT-->
     <div class="content">
     	<span class="ketquatimkiem">Tìm thấy 200 kết quả.</span>
         

@@ -2,7 +2,6 @@ package POJOs;
 // Generated Sep 24, 2013 9:20:03 AM by Hibernate Tools 3.2.1.GA
 
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,9 +13,9 @@ public class Khachhang  implements java.io.Serializable {
 
 
      private int makhachhang;
-     private Serializable hoten;
+     private String hoten;
      private Integer gioitinh;
-     private Serializable email;
+     private String email;
      private Date ngaysinh;
      private Integer trangthai;
      private Set<Donhang> donhangs = new HashSet<Donhang>(0);
@@ -28,7 +27,7 @@ public class Khachhang  implements java.io.Serializable {
     public Khachhang(int makhachhang) {
         this.makhachhang = makhachhang;
     }
-    public Khachhang(int makhachhang, Serializable hoten, Integer gioitinh, Serializable email, Date ngaysinh, Integer trangthai, Set<Donhang> donhangs) {
+    public Khachhang(int makhachhang, String hoten, Integer gioitinh, String email, Date ngaysinh, Integer trangthai, Set<Donhang> donhangs) {
        this.makhachhang = makhachhang;
        this.hoten = hoten;
        this.gioitinh = gioitinh;
@@ -45,11 +44,11 @@ public class Khachhang  implements java.io.Serializable {
     public void setMakhachhang(int makhachhang) {
         this.makhachhang = makhachhang;
     }
-    public Serializable getHoten() {
+    public String getHoten() {
         return this.hoten;
     }
     
-    public void setHoten(Serializable hoten) {
+    public void setHoten(String hoten) {
         this.hoten = hoten;
     }
     public Integer getGioitinh() {
@@ -59,11 +58,11 @@ public class Khachhang  implements java.io.Serializable {
     public void setGioitinh(Integer gioitinh) {
         this.gioitinh = gioitinh;
     }
-    public Serializable getEmail() {
+    public String getEmail() {
         return this.email;
     }
     
-    public void setEmail(Serializable email) {
+    public void setEmail(String email) {
         this.email = email;
     }
     public Date getNgaysinh() {
