@@ -4,53 +4,63 @@
     Author     : LEEYOOL
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.List"%>
+<%@page import="POJOs.Sanpham"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp" ></jsp:include>
-    
+<%
+    //Lay danh sach
+    List<Sanpham> ds = (List<Sanpham>) request.getAttribute("sanpham_timkiem");
+%>
     <!--CONTENT-->
     <div class="content">
-    	<span class="ketquatimkiem">Tìm thấy 200 kết quả.</span>
+    	<span class="ketquatimkiem">Tìm thấy <%= ds.size() %> kết quả.</span>
         
     	<!--TIM KIEM-->
         <form class="timkiem" name="frmTimKiem" id="frmTimKiem" method="post" action="<%= request.getContextPath() %>/sanpham?action=timkiem">
-        	<input type="search" class="txt" name="txtSearch" id="txtSearch" placeholder="Nhập từ khoá cần tìm" style="width: 250px;" />
+        	<input type="search" class="txt" name="txtSearch" id="txtSearch" value="<%= request.getAttribute("sanpham_txtSearch") %>" placeholder="Nhập tên sản phẩm cần tìm" style="width: 250px;" />
         </form><!--END TIM KIEM-->
     	
         <!--DANH SACH-->
         <div class="danhsach">
         	<ul class="danhsach-header">
                 <li style="width:60px;">ID</li>
-                <li style="width:250px;">Tên sản phẩm</li>
-                <li style="width:200px;">Danh mục</li>
+                <li style="width:280px;">Tên sản phẩm</li>
+                <li style="width:250px;">Danh mục</li>
                 <li style="width:200px;">Ảnh</li>
                 <li style="width:80px;">Số lượng</li>
-                <li style="width:130px;">Đơn giá</li>
-                <li style="width:80px; text-align:center;">Trạng thái</li>
+                <li style="width:150px;">Đơn giá</li>
                 <li style="width:100px; float:right; text-align:right;">
-                    <a href="<%= request.getContextPath() %>/sanpham/themmoi" name="btnThemSanPham" id="btnThemSanPham" title="Thêm sản phẩm mới">+ Thêm mới</a>
+                    <a href="<%= request.getContextPath() %>/sanpham-themmoi" name="btnThemSanPham" id="btnThemSanPham" title="Thêm sản phẩm mới">+ Thêm mới</a>
                 </li>
             </ul>
-            <div class="danhsach-chitiet">                
-                <ul class="danhsach-item">
-                    <li style="width:60px;">1</li>
-                    <li style="width:250px;">Thẻ biến hình</li>
-                    <li style="width:200px;">Linh tinh</li>
-                    <li style="width:200px;">
-                    	<a href="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-prn2/1174529_721584957857833_159548707_n.jpg" title="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-prn2/1174529_721584957857833_159548707_n.jpg" target="_blank">
-                            ...57857833_159548707_n.jpg
-                        </a>
-                    </li>
-                    <li style="width:80px;">522</li>
-                    <li style="width:130px;">200.000</li>
-                    <li style="width:80px; text-align:center;">
-                        <img class="imgTrangThai" name="imgTrangThai1" id="imgTrangThai1" src="<%= request.getContextPath() %>/images/check.png" alt="" width="16" height="16" data-code="1" title="Kích hoạt" />
-                    </li>
-                    <li style="width:100px; float:right; text-align:right;">
-                        <a class="lnkSua" name="btnSua1" id="btnSua1" data-id="1" data-trangthai="0" title="Sửa sản phẩm" href="<%= request.getContextPath() %>/sanpham/capnhat?id=1">Sửa</a>
-                        <a class="lnkXoa" name="btnXoa1" id="btnXoa1" data-id="1" title="Xoá sản phẩm" href="<%= request.getContextPath() %>/sanpham?action=xoa&id=1">Xoá</a>
-                    </li>
-                </ul>
-                
+            <div class="danhsach-chitiet">
+                <%
+                    for(int i = 0; i < ds.size(); i++)
+                    {
+                        int masanpham = ds.get(i).getMasanpham();
+                        long dongia = ds.get(i).getDongia();
+                        %>
+                        <ul class="danhsach-item">
+                            <li style="width:60px;"><%= masanpham %></li>
+                            <li style="width:280px;"><%= ds.get(i).getTensanpham() %></li>
+                            <li style="width:250px;"><%= ds.get(i).getDanhmucsanpham().getTendanhmuc() %></li>
+                            <li style="width:200px;">
+                                <a href="<%= ds.get(i).getHinhanh() %>" title="<%= ds.get(i).getHinhanh() %>" target="_blank">
+                                    <%= ds.get(i).getHinhanh() %>
+                                </a>
+                            </li>
+                            <li style="width:80px;"><%= ds.get(i).getSoluong() %></li>
+                            <li style="width:150px;"><%= dongia %></li>
+                            <li style="width:100px; float:right; text-align:right;">
+                                <a class="lnkSua" name="btnSua<%= masanpham %>" id="btnSua<%= masanpham %>" data-id="<%= masanpham %>" data-trangthai="0" title="Sửa sản phẩm" href="<%= request.getContextPath() %>/sanpham-themmoi?id=<%= masanpham %>">Sửa</a>
+                                <a class="lnkXoa" name="btnXoa<%= masanpham %>" id="btnXoa<%= masanpham %>" data-id="<%= masanpham %>" title="Xoá sản phẩm" href="<%= request.getContextPath() %>/sanpham?action=xoa&id=<%= masanpham %>">Xoá</a>
+                            </li>
+                        </ul>
+                        <%
+                    }
+                %>
                 
             </div>
         </div><!--END DANH SACH-->

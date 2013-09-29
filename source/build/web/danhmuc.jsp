@@ -25,10 +25,9 @@
         <div class="danhsach">
             <ul class="danhsach-header">
             	<li style="width:50px;">ID</li>
-                <li style="width:400px;">Tên danh mục</li>
-                <li style="width:80px; text-align:center;">Trạng thái</li>
+                <li style="width:500px;">Tên danh mục</li>
                 <li style="width:100px; float:right; text-align:right;">
-                    <a href="<%= request.getContextPath() %>/danhmuc/themmoi" name="btnThemDanhMuc" id="btnThemDanhMuc" title="Thêm danh mục mới">+ Thêm mới</a>
+                    <a href="<%= request.getContextPath() %>/danhmuc-themmoi" name="btnThemDanhMuc" id="btnThemDanhMuc" title="Thêm danh mục mới">+ Thêm mới</a>
                 </li>            
             </ul>
             <div class="danhsach-chitiet">
@@ -43,25 +42,8 @@
                             <li style="width:400px;">
                                 <input type="text" class="editField" name="txtTenDanhMuc<%= madanhmuc %>" id="txtTenDanhMuc<%= madanhmuc %>" readonly value="<%= ds.get(i).getTendanhmuc() %>" title="<%= ds.get(i).getTendanhmuc() %>" />
                             </li>
-                            <li style="width:80px; text-align:center;">
-                                <%
-                                    if(ds.get(i).getTrangthai() == 1)//kich hoat
-                                    {
-                                        %>
-                                        <img class="imgTrangThai" name="imgTrangThai<%= madanhmuc %>" id="imgTrangThai<%= madanhmuc %>" src="<%= request.getContextPath() %>/images/check.png" alt="" width="16" height="16" data-code="<%= madanhmuc %>" title="Kích hoạt" />
-                                        <%
-                                    }
-                                    else
-                                    {
-                                        %>
-                                        <img class="imgTrangThai" name="imgTrangThai<%= madanhmuc %>" id="imgTrangThai<%= madanhmuc %>" src="<%= request.getContextPath() %>/images/delete.png" alt="" width="16" height="16" data-code="<%= madanhmuc %>" title="Ẩn" />
-                                        <%
-                                    }
-                                %>
-                                
-                            </li>
                             <li style="width:100px; float:right; text-align:right;">
-                                <a href="<%= request.getContextPath() %>/danhmuc/capnhat?id=<%= madanhmuc %>" class="lnkSua" name="btnSua<%= madanhmuc %>" id="btnSua<%= madanhmuc %>" data-id="<%= madanhmuc %>" data-trangthai="0" title="Sửa danh mục">Sửa</a>
+                                <a href="<%= request.getContextPath() %>/danhmuc-themmoi?id=<%= madanhmuc %>" class="lnkSua" name="btnSua<%= madanhmuc %>" id="btnSua<%= madanhmuc %>" data-id="<%= madanhmuc %>" data-trangthai="0" title="Sửa danh mục">Sửa</a>
                                 <a href="<%= request.getContextPath() %>/danhmuc?action=xoa&id=<%= madanhmuc %>" class="lnkXoa" name="btnXoa<%= madanhmuc %>" id="btnXoa<%= madanhmuc %>" data-id="<%= madanhmuc %>" title="Xoá danh mục">Xoá</a>
                             </li>
                         </ul>

@@ -9,6 +9,7 @@ import Util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -74,6 +75,80 @@ public class DanhMucDAO {
             System.out.print(ex.getMessage());
         }
         return null;
+    }
+    
+    public static boolean ThemDanhMuc(String tendanhmuc) 
+    {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            
+            Danhmucsanpham dm = new Danhmucsanpham();
+            dm.setTendanhmuc(tendanhmuc);
+            dm.setTrangthai(1);
+            
+            Transaction tran = session.beginTransaction();
+            try
+            {
+                session.save(dm);
+                tran.commit();
+            }
+            catch(Exception ex)
+            {
+                tran.rollback();
+                System.err.print(ex.getMessage());
+                return false;
+            }
+            finally
+            {
+                session.close();
+            }
+            
+            return true;
+
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+        
+        return false;
+    }
+    
+    public static boolean CapNhatDanhMuc(int madanhmuc, String tendanhmuc) 
+    {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            
+            Danhmucsanpham dm = DAO.DanhMucDAO.LayDanhMuc(madanhmuc);
+            if(dm == null)
+            {
+                return false;
+            }
+            
+            dm.setTendanhmuc(tendanhmuc);
+            
+            Transaction tran = session.beginTransaction();
+            try
+            {
+                session.merge(dm);
+                tran.commit();
+            }
+            catch(Exception ex)
+            {
+                tran.rollback();
+                System.err.print(ex.getMessage());
+                return false;
+            }
+            finally
+            {
+                session.close();
+            }
+            
+            return true;
+
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+        
+        return false;
     }
     
 }

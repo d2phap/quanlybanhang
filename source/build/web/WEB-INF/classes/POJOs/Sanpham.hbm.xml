@@ -20,7 +20,7 @@
         <property name="soluong" type="java.lang.Integer">
             <column name="soluong" />
         </property>
-        <property name="dongia" type="java.lang.Double">
+        <property name="dongia" type="java.lang.Long">
             <column name="dongia" precision="53" scale="0" />
         </property>
         <property name="trangthai" type="java.lang.Integer">

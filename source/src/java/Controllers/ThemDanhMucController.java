@@ -4,19 +4,22 @@
  */
 package Controllers;
 
+import POJOs.Danhmucsanpham;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Duong Dieu Phap
  */
-@WebServlet(name = "ThemDanhMucController", urlPatterns = {"/danhmuc/themmoi"})
+@WebServlet(name = "ThemDanhMucController", urlPatterns = {"/danhmuc-themmoi"})
 public class ThemDanhMucController extends HttpServlet {
 
     /**
@@ -32,18 +35,78 @@ public class ThemDanhMucController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet XoaDanhMucController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet XoaDanhMucController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            
+            //Tham so
+            HttpSession session = request.getSession();
+            request.setAttribute("ServeletName", "danhmuc");
+            
+            //Kiem tra dang nhap & quyen truy cap
+            if(DAO.TaiKhoanDAO.KiemTraDangNhap(request, response) &&
+               (session.getAttribute("maloaitaikhoan").equals(1) || //admin
+               session.getAttribute("maloaitaikhoan").equals(3))) //merchandise
+            {
+                
+                //Dang nhap thanh cong
+                //Lay action
+                String action = request.getParameter("btnThemDanhMuc");
+                
+                if(action == null) //load
+                { 
+                    if(request.getParameter("id") != null) //sua
+                    {
+                        //Lay thong tin danh muc
+                        int madanhmuc = Integer.parseInt(request.getParameter("id"));
+                        
+                        //Chuyen thong tin danh muc
+                        request.setAttribute("danhmuc_thongtinchitiet", DAO.DanhMucDAO.LayDanhMuc(madanhmuc));
+                        
+                    }
+                    else //them moi
+                    {
+                        request.setAttribute("danhmuc_thongtinchitiet", null);
+                    }
+                    
+                    request.setAttribute("danhmuc_themmoi_kq", false);
+                }
+                else //submit
+                {
+                    if(request.getParameter("id") != null) //sua
+                    {
+                        int madanhmuc = Integer.parseInt(request.getParameter("id"));
+                        String tendanhmuc = request.getParameter("txtTenDanhMuc");
+                        
+                        request.setAttribute("danhmuc_themmoi_kq", 
+                                DAO.DanhMucDAO.CapNhatDanhMuc(madanhmuc, tendanhmuc));
+                        request.setAttribute("danhmuc_thongtinchitiet", DAO.DanhMucDAO.LayDanhMuc(madanhmuc));
+                    }
+                    else //them
+                    {
+                        if(request.getParameter("txtTenDanhMuc") != null)
+                        {
+                            String tendanhmuc = request.getParameter("txtTenDanhMuc");
+                            request.setAttribute("danhmuc_themmoi_kq", DAO.DanhMucDAO.ThemDanhMuc(tendanhmuc));
+                            request.setAttribute("danhmuc_thongtinchitiet", null);
+                        }
+                    }
+                }
+                
+                //Hien thi trang danh muc
+                RequestDispatcher view = request.getRequestDispatcher("themdanhmuc.jsp");
+                view.forward(request, response);
+            }
+            else
+            {
+                //Dang nhap that bai
+                //Bat dang nhap lai
+                String redirectURL = request.getContextPath() + "/login";
+                response.sendRedirect(redirectURL);
+            }
+            
+        } catch(IOException | ServletException ex){
+            System.err.print(ex.getMessage());
         } finally {            
             out.close();
         }

@@ -34,6 +34,7 @@ public class SanPhamController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         try {
             //Tham so
@@ -46,6 +47,34 @@ public class SanPhamController extends HttpServlet {
                session.getAttribute("maloaitaikhoan").equals(3))) //merchandise
             {
                 //Dang nhap thanh cong
+                //Lay action
+                String action = request.getParameter("action");
+                String txtSearch = "";
+                
+                if(action == null)
+                { }
+                else if(action.equals("timkiem"))
+                {
+                    if(request.getParameter("txtSearch") != null)
+                    {
+                        txtSearch = request.getParameter("txtSearch");
+                    }
+                }
+                else if(action.equals("xoa"))
+                {
+                    if(request.getParameter("id") != null)
+                    {
+                        //Lay ID
+                        int madanhmuc = Integer.parseInt(request.getParameter("id"));
+                        
+                    }
+                }
+                
+                //Tim kiem danh sach
+                request.setAttribute("sanpham_timkiem", DAO.SanPhamDAO.TimSanPham(txtSearch));
+                request.setAttribute("sanpham_txtSearch", txtSearch);
+                
+                //Hien thi trang                
                 RequestDispatcher view = request.getRequestDispatcher("sanpham.jsp");
                 view.forward(request, response);
             }

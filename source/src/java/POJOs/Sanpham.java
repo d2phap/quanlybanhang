@@ -16,7 +16,7 @@ public class Sanpham  implements java.io.Serializable {
      private String tensanpham;
      private String hinhanh;
      private Integer soluong;
-     private Double dongia;
+     private long dongia;
      private Integer trangthai;
      private Set<Chitietdonhang> chitietdonhangs = new HashSet<Chitietdonhang>(0);
 
@@ -27,7 +27,7 @@ public class Sanpham  implements java.io.Serializable {
     public Sanpham(int masanpham) {
         this.masanpham = masanpham;
     }
-    public Sanpham(int masanpham, Danhmucsanpham danhmucsanpham, String tensanpham, String hinhanh, Integer soluong, Double dongia, Integer trangthai, Set<Chitietdonhang> chitietdonhangs) {
+    public Sanpham(int masanpham, Danhmucsanpham danhmucsanpham, String tensanpham, String hinhanh, Integer soluong, long dongia, Integer trangthai, Set<Chitietdonhang> chitietdonhangs) {
        this.masanpham = masanpham;
        this.danhmucsanpham = danhmucsanpham;
        this.tensanpham = tensanpham;
@@ -73,11 +73,11 @@ public class Sanpham  implements java.io.Serializable {
     public void setSoluong(Integer soluong) {
         this.soluong = soluong;
     }
-    public Double getDongia() {
+    public long getDongia() {
         return this.dongia;
     }
     
-    public void setDongia(Double dongia) {
+    public void setDongia(long dongia) {
         this.dongia = dongia;
     }
     public Integer getTrangthai() {

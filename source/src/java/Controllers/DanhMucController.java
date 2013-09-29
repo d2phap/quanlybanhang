@@ -33,11 +33,13 @@ public class DanhMucController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         try {
             //Tham so
             HttpSession session = request.getSession();
             request.setAttribute("ServeletName", "danhmuc");
+            
             
             //Kiem tra dang nhap & quyen truy cap
             if(DAO.TaiKhoanDAO.KiemTraDangNhap(request, response) &&
