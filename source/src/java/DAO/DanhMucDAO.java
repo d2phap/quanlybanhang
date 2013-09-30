@@ -5,6 +5,7 @@
 package DAO;
 
 import POJOs.Danhmucsanpham;
+import POJOs.Sanpham;
 import Util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
@@ -115,20 +116,15 @@ public class DanhMucDAO {
     public static boolean CapNhatDanhMuc(int madanhmuc, String tendanhmuc) 
     {
         try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            
-            Danhmucsanpham dm = DAO.DanhMucDAO.LayDanhMuc(madanhmuc);
-            if(dm == null)
-            {
-                return false;
-            }
-            
-            dm.setTendanhmuc(tendanhmuc);
-            
+            Session session = HibernateUtil.getSessionFactory().openSession();            
             Transaction tran = session.beginTransaction();
             try
             {
-                session.merge(dm);
+                Danhmucsanpham d = (Danhmucsanpham) session.get(Danhmucsanpham.class, madanhmuc);                
+                d.setTendanhmuc(tendanhmuc);
+                
+                session.update(d);
+                session.flush();
                 tran.commit();
             }
             catch(Exception ex)

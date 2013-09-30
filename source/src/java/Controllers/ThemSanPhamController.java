@@ -18,8 +18,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Duong Dieu Phap
  */
-@WebServlet(name = "SanPhamController", urlPatterns = {"/sanpham"})
-public class SanPhamController extends HttpServlet {
+@WebServlet(name = "ThemSanPhamController", urlPatterns = {"/sanpham-themmoi"})
+public class ThemSanPhamController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -37,6 +37,7 @@ public class SanPhamController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            
             //Tham so
             HttpSession session = request.getSession();
             request.setAttribute("ServeletName", "sanpham");
@@ -46,36 +47,63 @@ public class SanPhamController extends HttpServlet {
                (session.getAttribute("maloaitaikhoan").equals(1) || //admin
                session.getAttribute("maloaitaikhoan").equals(3))) //merchandise
             {
+                
                 //Dang nhap thanh cong
                 //Lay action
-                String action = request.getParameter("action");
-                String txtSearch = "";
+                String action = request.getParameter("btnThemSanPham");
                 
-                if(action == null)
-                { }
-                else if(action.equals("timkiem"))
-                {
-                    if(request.getParameter("txtSearch") != null)
+                if(action == null) //load
+                { 
+                    if(request.getParameter("id") != null) //sua
                     {
-                        txtSearch = request.getParameter("txtSearch");
-                    }
-                }
-                else if(action.equals("xoa"))
-                {
-                    if(request.getParameter("id") != null)
-                    {
-                        //Lay ID
+                        //Lay thong tin danh muc
                         int masanpham = Integer.parseInt(request.getParameter("id"));
                         
+                        //Chuyen thong tin danh muc
+                        request.setAttribute("sanpham_thongtinchitiet", DAO.SanPhamDAO.LaySanPham(masanpham));
+                        
+                    }
+                    else //them moi
+                    {
+                        request.setAttribute("sanpham_thongtinchitiet", null);
+                    }
+                    
+                    request.setAttribute("sanpham_themmoi_kq", false);
+                }
+                else //submit
+                {
+                    if(request.getParameter("id") != null) //sua
+                    {
+                        int masanpham = Integer.parseInt(request.getParameter("id"));
+                        String tensanpham = request.getParameter("txtTenSanPham");
+                        String hinhanh = request.getParameter("txtHinhAnh");
+                        int madanhmucsanpham = Integer.parseInt(request.getParameter("cmbDanhMuc"));
+                        int soluong = Integer.parseInt(request.getParameter("txtSoLuong"));
+                        long dongia = Long.parseLong(request.getParameter("txtDonGia"));
+                        
+                        request.setAttribute("sanpham_themmoi_kq", DAO.SanPhamDAO.CapNhatSanPham(masanpham, tensanpham, 
+                                hinhanh, madanhmucsanpham, soluong, dongia));
+                        request.setAttribute("sanpham_thongtinchitiet", DAO.SanPhamDAO.LaySanPham(masanpham));
+                    }
+                    else //them
+                    {
+                        if(request.getParameter("txtTenSanPham") != null)
+                        {
+                            String tensanpham = request.getParameter("txtTenSanPham");
+                            String hinhanh = request.getParameter("txtHinhAnh");
+                            int madanhmucsanpham = Integer.parseInt(request.getParameter("cmbDanhMuc"));
+                            int soluong = Integer.parseInt(request.getParameter("txtSoLuong"));
+                            long dongia = Long.parseLong(request.getParameter("txtDonGia"));
+
+                            request.setAttribute("sanpham_themmoi_kq", DAO.SanPhamDAO.ThemSanPham(tensanpham, hinhanh, 
+                                    madanhmucsanpham, soluong, dongia));;
+                            request.setAttribute("sanpham_thongtinchitiet", null);
+                        }
                     }
                 }
                 
-                //Tim kiem danh sach
-                request.setAttribute("sanpham_timkiem", DAO.SanPhamDAO.TimSanPham(txtSearch));
-                request.setAttribute("sanpham_txtSearch", txtSearch);
-                
-                //Hien thi trang                
-                RequestDispatcher view = request.getRequestDispatcher("sanpham.jsp");
+                //Hien thi trang danh muc
+                RequestDispatcher view = request.getRequestDispatcher("themsanpham.jsp");
                 view.forward(request, response);
             }
             else
@@ -85,7 +113,6 @@ public class SanPhamController extends HttpServlet {
                 String redirectURL = request.getContextPath() + "/login";
                 response.sendRedirect(redirectURL);
             }
-            
             
         } finally {            
             out.close();

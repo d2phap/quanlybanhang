@@ -4,6 +4,7 @@
     Author     : LEEYOOL
 --%>
 
+<%@page import="sun.org.mozilla.javascript.internal.regexp.SubString"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="POJOs.Sanpham"%>
@@ -48,7 +49,21 @@
                             <li style="width:250px;"><%= ds.get(i).getDanhmucsanpham().getTendanhmuc() %></li>
                             <li style="width:200px;">
                                 <a href="<%= ds.get(i).getHinhanh() %>" title="<%= ds.get(i).getHinhanh() %>" target="_blank">
-                                    <%= ds.get(i).getHinhanh() %>
+                                    <% 
+                                        if(ds.get(i).getHinhanh() != null)
+                                        {
+                                            String hinhanh = ds.get(i).getHinhanh();
+                                            int l = hinhanh.length();
+                                            if(l > 24)
+                                            {
+                                                out.print("..." + hinhanh.substring(l - 25));
+                                            }
+                                            else
+                                            {
+                                                out.print("..." + hinhanh);
+                                            }
+                                        }
+                                    %>
                                 </a>
                             </li>
                             <li style="width:80px;"><%= ds.get(i).getSoluong() %></li>

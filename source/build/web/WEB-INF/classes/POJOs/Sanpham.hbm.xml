@@ -6,7 +6,7 @@
     <class name="POJOs.Sanpham" table="sanpham" schema="dbo" catalog="dbQLBH">
         <id name="masanpham" type="int">
             <column name="masanpham" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <many-to-one name="danhmucsanpham" class="POJOs.Danhmucsanpham" fetch="select">
             <column name="madanhmucsanpham" />
