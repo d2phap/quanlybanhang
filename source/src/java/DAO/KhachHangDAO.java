@@ -5,8 +5,9 @@
 package DAO;
 
 import POJOs.Danhmucsanpham;
-import POJOs.Sanpham;
+import POJOs.Khachhang;
 import Util.HibernateUtil;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -16,17 +17,17 @@ import org.hibernate.Transaction;
  *
  * @author Duong Dieu Phap
  */
-public class SanPhamDAO {
-    public static List<Sanpham> TimSanPham(String ten) 
+public class KhachHangDAO {
+    public static List<Khachhang> TimKhachHang(String ten) 
     {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
 
-            String hql = "from Sanpham t where t.trangthai = 1 and t.tensanpham like :ten";
+            String hql = "from Khachhang t where t.trangthai = 1 and t.hoten like :ten";
             Query q = session.createQuery(hql);
             q.setString("ten", "%" + ten + "%");
             
-            List<Sanpham> ds = q.list();
+            List<Khachhang> ds = q.list();
             return ds;
 
         } catch (Exception ex) {
@@ -35,17 +36,13 @@ public class SanPhamDAO {
         return null;
     }
     
-    public static List<Sanpham> TimSanPham(int madanhmuc) 
+    public static Khachhang LayKhachHang(int id)
     {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
 
-            String hql = "from Sanpham t where t.trangthai = 1 and t.madanhmucsanpham =:madanhmuc";
-            Query q = session.createQuery(hql);
-            q.setInteger("madanhmuc", madanhmuc);
-            
-            List<Sanpham> ds = q.list();
-            return ds;
+            Khachhang kh = (Khachhang) session.get(Khachhang.class, id);            
+            return kh;
 
         } catch (Exception ex) {
             System.out.print(ex.getMessage());
@@ -53,40 +50,58 @@ public class SanPhamDAO {
         return null;
     }
     
-    public static Sanpham LaySanPham(int id)
-    {
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-
-            Sanpham sp = (Sanpham) session.get(Sanpham.class, id);            
-            return sp;
-
-        } catch (Exception ex) {
-            System.out.print(ex.getMessage());
-        }
-        return null;
-    }
-    
-    public static boolean ThemSanPham(String tensanpham, String hinhanh, int madanhmucsanpham, 
-            int soluong, long donggia) 
+    public static boolean ThemKhachHang(String hoten, int gioitinh, String email, Date ngaysinh) 
     {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             
-            Danhmucsanpham dm = DAO.DanhMucDAO.LayDanhMuc(madanhmucsanpham);
-            Sanpham sp = new Sanpham();
-            
-            sp.setTensanpham(tensanpham);
-            sp.setHinhanh((hinhanh.equals("")) ? null : hinhanh);
-            sp.setDanhmucsanpham(dm);
-            sp.setSoluong(soluong);
-            sp.setDongia(donggia);
-            sp.setTrangthai(1);
+            Khachhang kh = new Khachhang();
+            kh.setHoten(hoten);
+            kh.setGioitinh(gioitinh);
+            kh.setEmail(email);
+            kh.setNgaysinh(ngaysinh);
+            kh.setTrangthai(1);
             
             Transaction tran = session.beginTransaction();
             try
             {
-                session.save(sp);
+                session.save(kh);
+                tran.commit();
+            }
+            catch(Exception ex)
+            {
+                tran.rollback();
+                System.err.print(ex.getMessage());
+                return false;
+            }
+            finally
+            {
+                session.close();
+            }
+            
+            return true;
+
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+        
+        return false;
+    }
+    
+    public static boolean CapNhatKhachHang(int makhachhang, String hoten, int gioitinh, String email, Date ngaysinh) 
+    {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();            
+            Transaction tran = session.beginTransaction();
+            try
+            {
+                Khachhang kh = (Khachhang) session.get(Khachhang.class, makhachhang);
+                kh.setHoten(hoten);
+                kh.setGioitinh(gioitinh);
+                kh.setEmail(email);
+                kh.setNgaysinh(ngaysinh);
+                
+                session.update(kh);
                 session.flush();
                 tran.commit();
             }
@@ -110,46 +125,16 @@ public class SanPhamDAO {
         return false;
     }
     
-    public static boolean CapNhatSanPham(int masanpham, String tensanpham, String hinhanh, 
-            int madanhmucsanpham, int soluong, long dongia) 
+    public static boolean XoaKhachHang(int id)
     {
         try {
-            Session session = HibernateUtil.getSessionFactory().openSession();            
-            Transaction tran = session.beginTransaction();
-            
-            try
-            {
-                Sanpham s = (Sanpham) session.get(Sanpham.class, masanpham);
-                Danhmucsanpham d = (Danhmucsanpham) session.get(Danhmucsanpham.class, madanhmucsanpham);
-                
-                s.setTensanpham(tensanpham);
-                s.setHinhanh((hinhanh.equals("")) ? null : hinhanh);
-                s.setDanhmucsanpham(d);
-                s.setSoluong(soluong);
-                s.setDongia(dongia);
-                s.setTrangthai(1);
-                
-                session.update(s);
-                session.flush();
-                tran.commit();
-            }
-            catch(Exception ex)
-            {
-                tran.rollback();
-                System.err.print(ex.getMessage());
-                return false;
-            }
-            finally
-            {
-                session.close();
-            }
-            
-            return true;
+            Session session = HibernateUtil.getSessionFactory().openSession();
+
+            /////
 
         } catch (Exception ex) {
             System.out.print(ex.getMessage());
         }
-        
         return false;
     }
 }

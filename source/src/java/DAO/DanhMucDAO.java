@@ -66,11 +66,8 @@ public class DanhMucDAO {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
 
-            String hql = "from Danhmucsanpham t where t.trangthai = 1 and t.madanhmuc =:madanhmuc";
-            Query q = session.createQuery(hql);
-            q.setInteger("madanhmuc", id);
-            
-            return (Danhmucsanpham) q.uniqueResult();
+            Danhmucsanpham dm = (Danhmucsanpham) session.get(Danhmucsanpham.class, id);
+            return dm;
 
         } catch (Exception ex) {
             System.out.print(ex.getMessage());

@@ -6,6 +6,11 @@ package Controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Duong Dieu Phap
  */
-@WebServlet(name = "ThemDanhMucController", urlPatterns = {"/danhmuc-themmoi"})
-public class ThemDanhMucController extends HttpServlet {
+@WebServlet(name = "ThemKhachHangController", urlPatterns = {"/khachhang-themmoi"})
+public class ThemKhachHangController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -32,7 +37,7 @@ public class ThemDanhMucController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
@@ -40,60 +45,68 @@ public class ThemDanhMucController extends HttpServlet {
             
             //Tham so
             HttpSession session = request.getSession();
-            request.setAttribute("ServeletName", "danhmuc");
+            request.setAttribute("ServeletName", "khachhang");
             
             //Kiem tra dang nhap & quyen truy cap
             if(DAO.TaiKhoanDAO.KiemTraDangNhap(request, response) &&
                (session.getAttribute("maloaitaikhoan").equals(1) || //admin
-               session.getAttribute("maloaitaikhoan").equals(3))) //merchandise
+               session.getAttribute("maloaitaikhoan").equals(2))) //customer service
             {
                 
                 //Dang nhap thanh cong
                 //Lay action
-                String action = request.getParameter("btnThemDanhMuc");
+                String action = request.getParameter("btnThemKhachHang");
                 
                 if(action == null) //load
                 { 
                     if(request.getParameter("id") != null) //sua
                     {
                         //Lay thong tin danh muc
-                        int madanhmuc = Integer.parseInt(request.getParameter("id"));
+                        int makhachhang = Integer.parseInt(request.getParameter("id"));
                         
                         //Chuyen thong tin danh muc
-                        request.setAttribute("danhmuc_thongtinchitiet", DAO.DanhMucDAO.LayDanhMuc(madanhmuc));
+                        request.setAttribute("khachhang_thongtinchitiet", DAO.KhachHangDAO.LayKhachHang(makhachhang));
                         
                     }
                     else //them moi
                     {
-                        request.setAttribute("danhmuc_thongtinchitiet", null);
+                        request.setAttribute("khachhang_thongtinchitiet", null);
                     }
                     
-                    request.setAttribute("danhmuc_themmoi_kq", false);
+                    request.setAttribute("khachhang_themmoi_kq", false);
                 }
                 else //submit
                 {
                     if(request.getParameter("id") != null) //sua
                     {
-                        int madanhmuc = Integer.parseInt(request.getParameter("id"));
-                        String tendanhmuc = request.getParameter("txtTenDanhMuc");
+                        int makhachhang = Integer.parseInt(request.getParameter("id"));
+                        String hoten = request.getParameter("txtHoTen");
+                        int gioitinh = Integer.parseInt(request.getParameter("cmbGioiTinh"));
+                        String email = request.getParameter("txtEmail");
+                        Date ngaysinh = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("txtNgaySinh"));
                         
-                        request.setAttribute("danhmuc_themmoi_kq", 
-                                DAO.DanhMucDAO.CapNhatDanhMuc(madanhmuc, tendanhmuc));
-                        request.setAttribute("danhmuc_thongtinchitiet", DAO.DanhMucDAO.LayDanhMuc(madanhmuc));
+                        request.setAttribute("khachhang_themmoi_kq", 
+                                DAO.KhachHangDAO.CapNhatKhachHang(makhachhang, hoten, gioitinh, email, ngaysinh));
+                        request.setAttribute("khachhang_thongtinchitiet", DAO.KhachHangDAO.LayKhachHang(makhachhang));
                     }
                     else //them
                     {
-                        if(request.getParameter("txtTenDanhMuc") != null)
+                        if(request.getParameter("txtHoTen") != null)
                         {
-                            String tendanhmuc = request.getParameter("txtTenDanhMuc");
-                            request.setAttribute("danhmuc_themmoi_kq", DAO.DanhMucDAO.ThemDanhMuc(tendanhmuc));
-                            request.setAttribute("danhmuc_thongtinchitiet", null);
+                            String hoten = request.getParameter("txtHoTen");
+                            int gioitinh = Integer.parseInt(request.getParameter("cmbGioiTinh"));
+                            String email = request.getParameter("txtEmail");
+                            Date ngaysinh = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("txtNgaySinh"));
+                            
+                            request.setAttribute("khachhang_themmoi_kq", 
+                                    DAO.KhachHangDAO.ThemKhachHang(hoten, gioitinh, email, ngaysinh));
+                            request.setAttribute("khachhang_thongtinchitiet", null);
                         }
                     }
                 }
                 
                 //Hien thi trang danh muc
-                RequestDispatcher view = request.getRequestDispatcher("themdanhmuc.jsp");
+                RequestDispatcher view = request.getRequestDispatcher("themkhachhang.jsp");
                 view.forward(request, response);
             }
             else
@@ -104,8 +117,6 @@ public class ThemDanhMucController extends HttpServlet {
                 response.sendRedirect(redirectURL);
             }
             
-        } catch(IOException | ServletException ex){
-            System.err.print(ex.getMessage());
         } finally {            
             out.close();
         }
@@ -124,7 +135,11 @@ public class ThemDanhMucController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ThemKhachHangController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -139,7 +154,11 @@ public class ThemDanhMucController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ThemKhachHangController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -4,8 +4,7 @@
  */
 package DAO;
 
-import POJOs.Chitietdonhang;
-import POJOs.Sanpham;
+import POJOs.Donhang;
 import Util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
@@ -15,17 +14,17 @@ import org.hibernate.Session;
  *
  * @author Duong Dieu Phap
  */
-public class ChiTietDonHangDAO {
-    public static List<Chitietdonhang> TimSanPham(int masanpham) 
+public class DonHangDAO {
+    public static List<Donhang> TimDonHang(String ten) 
     {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
 
-            String hql = "from Chitietdonhang t where t.trangthai = 1 and t.masanpham =:masanpham";
+            String hql = "from Donhang t where t.khachhang.hoten like :ten";
             Query q = session.createQuery(hql);
-            q.setInteger("masanpham", masanpham);
+            q.setString("ten", "%" + ten + "%");
             
-            List<Chitietdonhang> ds = q.list();
+            List<Donhang> ds = q.list();
             return ds;
 
         } catch (Exception ex) {

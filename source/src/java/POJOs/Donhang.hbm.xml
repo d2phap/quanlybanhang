@@ -6,9 +6,9 @@
     <class name="POJOs.Donhang" table="donhang" schema="dbo" catalog="dbQLBH">
         <id name="madonhang" type="int">
             <column name="madonhang" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
-        <many-to-one name="khachhang" class="POJOs.Khachhang" fetch="select">
+        <many-to-one name="khachhang" class="POJOs.Khachhang" fetch="join" lazy="false">
             <column name="makhachhang" />
         </many-to-one>
         <property name="ngaylap" type="timestamp">

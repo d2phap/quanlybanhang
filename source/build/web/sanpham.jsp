@@ -20,7 +20,7 @@
         
     	<!--TIM KIEM-->
         <form class="timkiem" name="frmTimKiem" id="frmTimKiem" method="post" action="<%= request.getContextPath() %>/sanpham?action=timkiem">
-        	<input type="search" class="txt" name="txtSearch" id="txtSearch" value="<%= request.getAttribute("sanpham_txtSearch") %>" placeholder="Nhập tên sản phẩm cần tìm" style="width: 250px;" />
+            <input type="search" class="txt" name="txtSearch" id="txtSearch" value="<%= request.getAttribute("sanpham_txtSearch") %>" placeholder="Nhập tên sản phẩm cần tìm" style="width: 250px;" />
         </form><!--END TIM KIEM-->
     	
         <!--DANH SACH-->

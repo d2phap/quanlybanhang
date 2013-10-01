@@ -6,11 +6,13 @@ package Controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,16 +37,45 @@ public class KhachHangController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet KhachHangController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet KhachHangController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            //Tham so
+            HttpSession session = request.getSession();
+            request.setAttribute("ServeletName", "khachhang");
+            
+            //Kiem tra dang nhap & quyen truy cap
+            if(DAO.TaiKhoanDAO.KiemTraDangNhap(request, response) &&
+               (session.getAttribute("maloaitaikhoan").equals(1) || //admin
+               session.getAttribute("maloaitaikhoan").equals(2))) //customer service
+            {
+                //Dang nhap thanh cong
+                //Lay action
+                String action = request.getParameter("action");
+                String txtSearch = "";
+                
+                if(action == null)
+                { }
+                else if(action.equals("timkiem"))
+                {
+                    if(request.getParameter("txtSearch") != null)
+                    {
+                        txtSearch = request.getParameter("txtSearch");
+                    }
+                }
+                
+                //Tim kiem danh sach
+                request.setAttribute("khachhang_timkiem", DAO.KhachHangDAO.TimKhachHang(txtSearch));
+                request.setAttribute("khachhang_txtSearch", txtSearch);
+                
+                //Hien thi trang                
+                RequestDispatcher view = request.getRequestDispatcher("khachhang.jsp");
+                view.forward(request, response);
+            }
+            else
+            {
+                //Dang nhap that bai
+                //Bat dang nhap lai
+                String redirectURL = request.getContextPath() + "/login";
+                response.sendRedirect(redirectURL);
+            }
         } finally {            
             out.close();
         }

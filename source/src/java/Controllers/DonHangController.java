@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,11 +37,45 @@ public class DonHangController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            //Tham so
+            HttpSession session = request.getSession();
             request.setAttribute("ServeletName", "donhang");
             
-            RequestDispatcher view = request.getRequestDispatcher("donhang.jsp");
-            view.forward(request, response);
-            
+            //Kiem tra dang nhap & quyen truy cap
+            if(DAO.TaiKhoanDAO.KiemTraDangNhap(request, response) &&
+               (session.getAttribute("maloaitaikhoan").equals(1) || //admin
+               session.getAttribute("maloaitaikhoan").equals(4))) //accountant
+            {
+                //Dang nhap thanh cong
+                //Lay action
+                String action = request.getParameter("action");
+                String txtSearch = "";
+                
+                if(action == null)
+                { }
+                else if(action.equals("timkiem"))
+                {
+                    if(request.getParameter("txtSearch") != null)
+                    {
+                        txtSearch = request.getParameter("txtSearch");
+                    }
+                }
+                
+                //Tim kiem danh sach
+                request.setAttribute("donhang_timkiem", DAO.DonHangDAO.TimDonHang(txtSearch));
+                request.setAttribute("donhang_txtSearch", txtSearch);
+                
+                //Hien thi trang                
+                RequestDispatcher view = request.getRequestDispatcher("donhang.jsp");
+                view.forward(request, response);
+            }
+            else
+            {
+                //Dang nhap that bai
+                //Bat dang nhap lai
+                String redirectURL = request.getContextPath() + "/login";
+                response.sendRedirect(redirectURL);
+            }
             
         } finally {            
             out.close();
