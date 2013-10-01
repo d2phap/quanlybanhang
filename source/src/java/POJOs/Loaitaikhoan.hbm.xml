@@ -6,7 +6,7 @@
     <class name="POJOs.Loaitaikhoan" table="loaitaikhoan" schema="dbo" catalog="dbQLBH">
         <id name="maloaitaikhoan" type="int">
             <column name="maloaitaikhoan" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="tenloaitaikhoan" type="string">
             <column name="tenloaitaikhoan" />

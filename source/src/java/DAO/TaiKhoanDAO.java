@@ -4,11 +4,13 @@
  */
 package DAO;
 
+import POJOs.Loaitaikhoan;
 import POJOs.Taikhoan;
 import Util.HibernateUtil;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -40,6 +42,24 @@ public class TaiKhoanDAO {
             
             Taikhoan tk = (Taikhoan) q.uniqueResult();
             return tk;
+
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+        return null;
+    }
+    
+    public static List<Loaitaikhoan> TimLoaiTaiKhoan(String ten) 
+    {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+
+            String hql = "from Loaitaikhoan t where t.tenloaitaikhoan like :ten";
+            Query q = session.createQuery(hql);
+            q.setString("ten", "%" + ten + "%");
+            
+            List<Loaitaikhoan> ds = q.list();
+            return ds;
 
         } catch (Exception ex) {
             System.out.print(ex.getMessage());
