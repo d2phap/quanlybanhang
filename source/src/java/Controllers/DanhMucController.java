@@ -67,7 +67,7 @@ public class DanhMucController extends HttpServlet {
                     {
                         //Lay ID
                         int madanhmuc = Integer.parseInt(request.getParameter("id"));
-                        
+                        request.setAttribute("danhmuc_xoa_kq", DAO.DanhMucDAO.XoaDanhMuc(madanhmuc));
                     }
                 }
                 

@@ -13,10 +13,21 @@
 <%
     //Lay danh sach
     List<Sanpham> ds = (List<Sanpham>) request.getAttribute("sanpham_timkiem");
+    String thongbao = "";
+    if(request.getAttribute("sanpham_xoa_kq") != null)
+    {
+        if(request.getAttribute("sanpham_xoa_kq").equals(true))
+        {
+            thongbao = "<b style='color:#f00;'>Xoá thành công.</b><br/>";
+        }
+    }
 %>
     <!--CONTENT-->
     <div class="content">
-    	<span class="ketquatimkiem">Tìm thấy <%= ds.size() %> kết quả.</span>
+    	<span class="ketquatimkiem">
+            <%= thongbao %>
+            Tìm thấy <%= ds.size() %> kết quả.
+        </span>
         
     	<!--TIM KIEM-->
         <form class="timkiem" name="frmTimKiem" id="frmTimKiem" method="post" action="<%= request.getContextPath() %>/sanpham?action=timkiem">

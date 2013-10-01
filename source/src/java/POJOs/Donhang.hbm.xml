@@ -17,7 +17,7 @@
         <property name="tongtien" type="java.lang.Double">
             <column name="tongtien" precision="53" scale="0" />
         </property>
-        <set name="chitietdonhangs" inverse="true">
+        <set name="chitietdonhangs" inverse="true" cascade="delete">
             <key>
                 <column name="madonhang" />
             </key>

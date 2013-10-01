@@ -35,32 +35,6 @@ public class DanhMucDAO {
         return null;
     }
     
-    public static boolean XoaDanhMuc(int id) 
-    {
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            
-            //1. Lay Sanpham co madanhmucsanpham = x
-            
-            //2. Lay Chitietdonhang co masanpham = x
-            
-            //3. Xoa ds Chitietdonhang
-            
-            //4. Xoa ds Sanpham
-            
-            //5. Xoa Danhmuc
-            
-            
-            
-            
-            return true;
-
-        } catch (Exception ex) {
-            System.out.print(ex.getMessage());
-        }
-        return false;
-    }
-    
     public static Danhmucsanpham LayDanhMuc(int id)
     {
         try {
@@ -121,6 +95,40 @@ public class DanhMucDAO {
                 d.setTendanhmuc(tendanhmuc);
                 
                 session.update(d);
+                session.flush();
+                tran.commit();
+            }
+            catch(Exception ex)
+            {
+                tran.rollback();
+                System.err.print(ex.getMessage());
+                return false;
+            }
+            finally
+            {
+                session.close();
+            }
+            
+            return true;
+
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+        
+        return false;
+    }
+    
+    public static boolean XoaDanhMuc(int madanhmuc)
+    {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();            
+            Transaction tran = session.beginTransaction();
+            try
+            {   
+                //5. Xoa san pham voi Cascadate
+                Danhmucsanpham kh = (Danhmucsanpham) session.get(Danhmucsanpham.class, madanhmuc);
+                session.delete(kh);
+                
                 session.flush();
                 tran.commit();
             }

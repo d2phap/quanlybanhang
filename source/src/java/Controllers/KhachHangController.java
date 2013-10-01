@@ -60,6 +60,15 @@ public class KhachHangController extends HttpServlet {
                         txtSearch = request.getParameter("txtSearch");
                     }
                 }
+                else if(action.equals("xoa"))
+                {
+                    if(request.getParameter("id") != null)
+                    {
+                        //Lay ID
+                        int makhachhang = Integer.parseInt(request.getParameter("id"));
+                        request.setAttribute("khachhang_xoa_kq", DAO.KhachHangDAO.XoaKhachHang(makhachhang));
+                    }
+                }
                 
                 //Tim kiem danh sach
                 request.setAttribute("khachhang_timkiem", DAO.KhachHangDAO.TimKhachHang(txtSearch));

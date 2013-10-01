@@ -11,12 +11,24 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp" ></jsp:include>
 <%
-    //Lay danh sach danh muc
+    //Lay danh sach
     List<Khachhang> ds = (List<Khachhang>) request.getAttribute("khachhang_timkiem");
+    
+    String thongbao = "";
+    if(request.getAttribute("khachhang_xoa_kq") != null)
+    {
+        if(request.getAttribute("khachhang_xoa_kq").equals(true))
+        {
+            thongbao = "<b style='color:#f00;'>Xoá thành công.</b><br/>";
+        }
+    }
 %>
     <!--CONTENT-->
     <div class="content">
-        <span class="ketquatimkiem">Tìm thấy <%= ds.size() %> kết quả.</span>
+        <span class="ketquatimkiem">
+            <%= thongbao %>
+            Tìm thấy <%= ds.size() %> kết quả.
+        </span>
         
     	<!--TIM KIEM-->
         <form class="timkiem" name="frmTimKiem" id="frmTimKiem" method="post" action="<%= request.getContextPath() %>/khachhang?action=timkiem">
@@ -51,7 +63,7 @@
                             <li style="width:130px;"><%= _ngaysinh %></li>
                             <li style="width:100px; float:right; text-align:right;">
                                 <a class="lnkSua" name="btnSua<%= _makhachhang %>" id="btnSua<%= _makhachhang %>" data-id="<%= _makhachhang %>" data-trangthai="0" title="Sửa khách hàng" href="<%= request.getContextPath() %>/khachhang-themmoi?id=<%= _makhachhang %>">Sửa</a>
-                                <a class="lnkXoa" name="btnXoa<%= _makhachhang %>" id="btnXoa<%= _makhachhang %>" data-id="<%= _makhachhang %>" title="Xoá khách hàng" href="<%= request.getContextPath() %>/khachhang?id=<%= _makhachhang %>">Xoá</a>
+                                <a class="lnkXoa" name="btnXoa<%= _makhachhang %>" id="btnXoa<%= _makhachhang %>" data-id="<%= _makhachhang %>" title="Xoá khách hàng" href="<%= request.getContextPath() %>/khachhang?action=xoa&id=<%= _makhachhang %>">Xoá</a>
                             </li>
                         </ul>
                         <%

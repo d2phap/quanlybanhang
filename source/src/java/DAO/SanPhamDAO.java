@@ -152,4 +152,38 @@ public class SanPhamDAO {
         
         return false;
     }
+    
+    public static boolean XoaSanPham(int masanpham)
+    {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();            
+            Transaction tran = session.beginTransaction();
+            try
+            {   
+                //5. Xoa san pham voi Cascadate
+                Sanpham kh = (Sanpham) session.get(Sanpham.class, masanpham);
+                session.delete(kh);
+                
+                session.flush();
+                tran.commit();
+            }
+            catch(Exception ex)
+            {
+                tran.rollback();
+                System.err.print(ex.getMessage());
+                return false;
+            }
+            finally
+            {
+                session.close();
+            }
+            
+            return true;
+
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+        
+        return false;
+    }
 }

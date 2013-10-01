@@ -48,7 +48,7 @@
             </select>
             <br/><br/>
             Hình ảnh:<br/>
-            <input type="url" class="txt" name="txtHinhAnh" id="txtHinhAnh" value="<%= (sp != null) ? sp.getHinhanh() : "" %>" style="width:300px;" /><br/><br/>
+            <input type="url" class="txt" name="txtHinhAnh" id="txtHinhAnh" value="<%= (sp != null) ? ((sp.getHinhanh() != null) ? sp.getHinhanh() : "") : "" %>" style="width:300px;" /><br/><br/>
             Số lượng:<br/>
             <input type="number" min="1" max="99999" class="txt" name="txtSoLuong" id="txtSoLuong" value="<%= (sp != null) ? sp.getSoluong() : "" %>" required style="width:300px;" /><br/><br/>
             Đơn giá:<br/>

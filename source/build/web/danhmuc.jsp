@@ -11,10 +11,22 @@
 <%
     //Lay danh sach danh muc
     List<Danhmucsanpham> ds = (List<Danhmucsanpham>) request.getAttribute("danhmuc_timkiem");
+    
+    String thongbao = "";
+    if(request.getAttribute("danhmuc_xoa_kq") != null)
+    {
+        if(request.getAttribute("danhmuc_xoa_kq").equals(true))
+        {
+            thongbao = "<b style='color:#f00;'>Xoá thành công.</b><br/>";
+        }
+    }
 %>
     <!--CONTENT-->
     <div class="content">
-        <span class="ketquatimkiem">Tìm thấy <%= ds.size() %> kết quả.</span>
+        <span class="ketquatimkiem">
+            <%= thongbao %>
+            Tìm thấy <%= ds.size() %> kết quả.
+        </span>
         
     	<!--TIM KIEM-->
         <form class="timkiem" name="frmTimKiem" id="frmTimKiem" method="post" action="<%= request.getContextPath() %>/danhmuc?action=timkiem">

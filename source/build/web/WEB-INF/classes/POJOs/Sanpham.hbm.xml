@@ -26,7 +26,7 @@
         <property name="trangthai" type="java.lang.Integer">
             <column name="trangthai" />
         </property>
-        <set name="chitietdonhangs" inverse="true">
+        <set name="chitietdonhangs" inverse="true" cascade="delete">
             <key>
                 <column name="masanpham" />
             </key>

@@ -4,11 +4,13 @@
  */
 package DAO;
 
-import POJOs.Danhmucsanpham;
+import POJOs.Chitietdonhang;
+import POJOs.Donhang;
 import POJOs.Khachhang;
 import Util.HibernateUtil;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -125,16 +127,37 @@ public class KhachHangDAO {
         return false;
     }
     
-    public static boolean XoaKhachHang(int id)
+    public static boolean XoaKhachHang(int makhachhang)
     {
         try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-
-            /////
+            Session session = HibernateUtil.getSessionFactory().openSession();            
+            Transaction tran = session.beginTransaction();
+            try
+            {   
+                //5. Xoa khach hang voi Cascadate
+                Khachhang kh = (Khachhang) session.get(Khachhang.class, makhachhang);
+                session.delete(kh);
+                
+                session.flush();
+                tran.commit();
+            }
+            catch(Exception ex)
+            {
+                tran.rollback();
+                System.err.print(ex.getMessage());
+                return false;
+            }
+            finally
+            {
+                session.close();
+            }
+            
+            return true;
 
         } catch (Exception ex) {
             System.out.print(ex.getMessage());
         }
+        
         return false;
     }
 }

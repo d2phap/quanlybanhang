@@ -66,7 +66,7 @@ public class SanPhamController extends HttpServlet {
                     {
                         //Lay ID
                         int masanpham = Integer.parseInt(request.getParameter("id"));
-                        
+                        request.setAttribute("sanpham_xoa_kq", DAO.SanPhamDAO.XoaSanPham(masanpham));
                     }
                 }
                 
