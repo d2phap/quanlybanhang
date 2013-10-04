@@ -4,11 +4,11 @@
   <session-factory>
     <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
     <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=dbQLBH</property>
-    <property name="hibernate.connection.username">dbqlbh</property>
-    <property name="hibernate.connection.password">12345</property>
+    <property name="hibernate.connection.username">sa</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
     <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+    <property name="hibernate.connection.password"></property>
     <mapping resource="POJOs/Khachhang.hbm.xml"/>
     <mapping resource="POJOs/Chitietdonhang.hbm.xml"/>
     <mapping resource="POJOs/Taikhoan.hbm.xml"/>
